@@ -35,7 +35,7 @@ On Safari the left one should show the checkerboard through the transparent area
 		document.getElementById(hostId).appendChild(app.canvas)
 
 		if (workaround) {
-			// Pixi >= 8.15 (#11867) defaults forceAllocation to isSafari(): texImage2D on every upload. Put it back to texSubImage2D.
+			// Pixi >= 8.16 (#11867) defaults forceAllocation to isSafari(): texImage2D on every upload. Put it back to texSubImage2D.
 			const uploads = app.renderer.texture._uploads
 			const original = uploads.video
 			uploads.video = { ...original, upload: (s, t, gl, v) => original.upload(s, t, gl, v, undefined, false) }

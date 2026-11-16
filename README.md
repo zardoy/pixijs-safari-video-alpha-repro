@@ -2,10 +2,10 @@
 
 Minimal reproduction for a PixiJS video texture bug.
 
-Since PixiJS 8.15 ([#11867](https://github.com/pixijs/pixijs/pull/11867)), `glUploadVideoResource.upload`
+Since PixiJS 8.16 ([#11867](https://github.com/pixijs/pixijs/pull/11867)), `glUploadVideoResource.upload`
 defaults `forceAllocation` to `isSafari()`, so Safari re-allocates a video texture with `texImage2D` on
 every frame. In Safari that path returns an HEVC-with-alpha `<video>` **without its alpha channel**: the
-transparent area comes out opaque black. 8.14.3 (which uses `texSubImage2D` after the first upload) is fine.
+transparent area comes out opaque black. 8.15.0 and earlier (which use `texSubImage2D` after the first upload) are fine. The code is unchanged in 8.23.0.
 
 `index.html` is a single file with the clip embedded as base64. It plays the same clip twice as a
 `PIXI.VideoSource` texture:
@@ -24,7 +24,7 @@ Serve the folder (or open `index.html` directly) in **Safari** and wait ~2 secon
 | Safari 27.2, PixiJS 8.19.0 | alpha LOST | alpha kept |
 | Chrome | alpha kept | alpha kept |
 
-`?pixi=8.14.3` loads the previous PixiJS version (default is 8.19.0).
+`?pixi=8.15.0` loads the last version without the change, `?pixi=8.23.0` the latest (default is 8.19.0).
 
 ## Files
 
